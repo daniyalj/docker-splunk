@@ -13,6 +13,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+if [[ $UID -ge 10000 ]]; then
+    GID=$(id -g)
+    sed -e "s/^splunk:x:[^:]*:[^:]*:/splunk:x:$UID:$GID:/" /etc/passwd > /tmp/passwd
+    cat /tmp/passwd > /etc/passwd
+    rm /tmp/passwd
+fi
 
 set -e
 
