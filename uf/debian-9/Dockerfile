@@ -48,5 +48,8 @@ VOLUME [ "/opt/splunkforwarder/etc", "/opt/splunkforwarder/var" ]
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=3m --retries=5 CMD /sbin/checkstate.sh || exit 1
 
+# OpenShift
+RUN chmod 664 /etc/passwd
+
 ENTRYPOINT [ "/sbin/entrypoint.sh" ]
 CMD [ "start-service" ]
